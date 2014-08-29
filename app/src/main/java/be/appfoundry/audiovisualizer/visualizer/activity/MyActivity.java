@@ -5,26 +5,37 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import be.appfoundry.audiovisualizer.R;
 import be.appfoundry.audiovisualizer.visualizer.VisualizerView;
 import be.appfoundry.audiovisualizer.visualizer.shape.BarDrawer;
 import be.appfoundry.audiovisualizer.visualizer.shape.CircleDrawer;
 import be.appfoundry.audiovisualizer.visualizer.shape.LineDrawer;
+import be.appfoundry.audiovisualizer.visualizer.shape.TestDrawer;
 
 /**
  * Created by donpironet on 28/08/14.
  */
 public class MyActivity extends Activity {
+    private static final String TAG = MyActivity.class.getName();
+
     private MediaPlayer mPlayer;
     private VisualizerView mVisualizerView;
 
     private Button mPlay;
     private Button mStop;
+
+    private ProgressBar mProgressBar;
+    private Timer mTimer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +47,18 @@ public class MyActivity extends Activity {
         mPlay.setOnClickListener(startButtonListener);
         mStop.setOnClickListener(stopButtonListener);
 
+        mProgressBar = (ProgressBar)findViewById (R.id.progressBar);
+
+        mTimer = new Timer();
+
+        mTimer.schedule(new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                mProgressBar.setProgress(mProgressBar.getProgress() + 1);
+            }
+        }, 0, 1000);
     }
 
     private View.OnClickListener startButtonListener = new View.OnClickListener() {
@@ -81,12 +104,16 @@ public class MyActivity extends Activity {
 
     private void init() {
         mPlayer = MediaPlayer.create(this, R.raw.test);
+        long time = TimeUnit.MILLISECONDS.toSeconds(mPlayer.getDuration());
+        mProgressBar.setMax((int)time);
         mPlayer.setLooping(true);
         mPlayer.start();
 
         // Link the visualizer view with the mediaplayer
         mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
         mVisualizerView.link(mPlayer);
+
+        //addTestDrawer();
 
         //Add a Circle to the view
         addCircleRenderer();
@@ -107,6 +134,16 @@ public class MyActivity extends Activity {
             mPlayer.release();
             mPlayer = null;
         }
+    }
+
+    private void addTestDrawer()
+    {
+        Paint paint = new Paint();
+        paint.setStrokeWidth(10f);
+        paint.setAntiAlias(true);
+        paint.setColor(Color.rgb(255,0,0));
+        TestDrawer barGraphRendererBottom = new TestDrawer(16, paint, false);
+        mVisualizerView.addRenderer(barGraphRendererBottom);
     }
 
     private void addCircleRenderer()
@@ -153,6 +190,7 @@ public class MyActivity extends Activity {
         {
             return;
         }
+        Log.d(TAG, "Duration Song " + TimeUnit.MILLISECONDS.toSeconds(mPlayer.getDuration()));
         mPlayer.prepare();
         mPlayer.start();
     }

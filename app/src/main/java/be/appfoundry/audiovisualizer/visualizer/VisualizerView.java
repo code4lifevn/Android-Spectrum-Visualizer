@@ -105,8 +105,8 @@ public class VisualizerView extends View {
         }
     }
 
-    // Clears all Renderers ( Circle, etc ..)
-    public void clearRenderers() {
+    // Clears all Drawers ( Circle, etc ..)
+    public void clearDrawers() {
         mShapeDrawers.clear();
     }
 
