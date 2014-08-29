@@ -52,7 +52,7 @@ public class BarDrawer extends ShapeDrawer
             float magnitude = (rfk * rfk + ifk * ifk);
             int dbValue = (int) (10 * Math.log10(magnitude));
 
-            if(!mTop)
+            if(mTop)
             {
                 mFFTPoints[i * 4 + 1] = 0;
                 mFFTPoints[i * 4 + 3] = (dbValue * 2 - 10);
