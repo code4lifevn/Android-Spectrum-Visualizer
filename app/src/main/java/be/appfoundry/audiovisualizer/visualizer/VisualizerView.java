@@ -51,7 +51,7 @@ public class VisualizerView extends View {
         mFFTBytes = null;
 
         mFlashPaint.setColor(Color.argb(122, 255, 255, 255)); // Change Alpha to adjust fading speed
-        mFadePaint.setColor(Color.argb(180, 255, 255, 255)); // Change Alpha to adjust fading speed
+        mFadePaint.setColor(Color.argb(218, 255, 255, 255)); // Change Alpha to adjust fading speed
         mFadePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
 
         mShapeDrawers = new HashSet<ShapeDrawer>();

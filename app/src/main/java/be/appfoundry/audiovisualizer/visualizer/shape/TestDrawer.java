@@ -70,12 +70,4 @@ public class TestDrawer extends ShapeDrawer {
         }
         canvas.restore();
     }
-
-    private int positiveModulo(int number) {
-        int result = number % MAXHEIGHT;
-        if (result < 0) {
-            result += MAXHEIGHT;
-        }
-        return result;
-    }
 }

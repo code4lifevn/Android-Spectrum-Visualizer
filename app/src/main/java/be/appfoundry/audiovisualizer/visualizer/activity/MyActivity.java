@@ -21,6 +21,7 @@ import be.appfoundry.audiovisualizer.visualizer.shape.BarDrawer;
 import be.appfoundry.audiovisualizer.visualizer.shape.CircleDrawer;
 import be.appfoundry.audiovisualizer.visualizer.shape.LineDrawer;
 import be.appfoundry.audiovisualizer.visualizer.shape.TestDrawer;
+import be.appfoundry.audiovisualizer.visualizer.shape.TestDrawer2;
 
 /**
  * Created by donpironet on 28/08/14.
@@ -113,10 +114,11 @@ public class MyActivity extends Activity {
         mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
         mVisualizerView.link(mPlayer);
 
+        addTestDrawer2();
         //addTestDrawer();
 
         //Add a Circle to the view
-        addCircleRenderer();
+        //addCircleRenderer();
 
         //Add the LineDrawer to the view
         //addLineRenderer();
@@ -135,6 +137,17 @@ public class MyActivity extends Activity {
             mPlayer = null;
         }
     }
+
+    private void addTestDrawer2()
+    {
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(16);
+        TestDrawer2 barGraphRendererBottom = new TestDrawer2(paint);
+        mVisualizerView.addRenderer(barGraphRendererBottom);
+    }
+
 
     private void addTestDrawer()
     {
