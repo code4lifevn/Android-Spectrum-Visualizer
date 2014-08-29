@@ -17,7 +17,7 @@ public class CircleDrawer extends ShapeDrawer {
     private float colorCounter = 0;
 
     float modulation = 0;
-    float aggresive = 0.33f;
+    float aggresive = 0.50f;
 
     /**
      * Renders the audio data onto a pulsing circle

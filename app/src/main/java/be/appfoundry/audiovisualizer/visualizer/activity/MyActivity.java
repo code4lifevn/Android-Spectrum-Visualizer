@@ -116,13 +116,13 @@ public class MyActivity extends Activity {
         //addTestDrawer();
 
         //Add a Circle to the view
-        //addCircleRenderer();
+        addCircleRenderer();
 
         //Add the LineDrawer to the view
         //addLineRenderer();
 
         //Add a Bar to the view
-        addBarGraphRenderers();
+        //addBarGraphRenderers();
 
     }
 
