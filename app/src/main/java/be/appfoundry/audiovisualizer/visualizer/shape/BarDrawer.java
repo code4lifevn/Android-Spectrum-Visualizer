@@ -14,6 +14,7 @@ import be.appfoundry.audiovisualizer.visualizer.FFTData;
 public class BarDrawer extends ShapeDrawer
 {
     private static final String TAG = BarDrawer.class.getName();
+    public static final int MAXHEIGHT = 100;
     private int mDivisions;
     private Paint mPaint;
     private boolean mTop;
@@ -51,7 +52,7 @@ public class BarDrawer extends ShapeDrawer
             float magnitude = (rfk * rfk + ifk * ifk);
             int dbValue = (int) (10 * Math.log10(magnitude));
 
-            if(mTop)
+            if(!mTop)
             {
                 mFFTPoints[i * 4 + 1] = 0;
                 mFFTPoints[i * 4 + 3] = (dbValue * 2 - 10);
@@ -59,11 +60,19 @@ public class BarDrawer extends ShapeDrawer
             else
             {
                 mFFTPoints[i * 4 + 1] = rect.height();
-                mFFTPoints[i * 4 + 3] = rect.height()/2 - dbValue;
+                mFFTPoints[i * 4 + 3] = rect.height() - positiveModulo(dbValue);
 
             }
         }
         canvas.drawLines(mFFTPoints, mPaint);
+    }
+
+    private int positiveModulo(int number) {
+        int result = number % MAXHEIGHT;
+        if (result < 0) {
+            result += MAXHEIGHT;
+        }
+        return result;
     }
 }
 
