@@ -20,6 +20,7 @@ import be.appfoundry.audiovisualizer.visualizer.VisualizerView;
 import be.appfoundry.audiovisualizer.visualizer.shape.BarDrawer;
 import be.appfoundry.audiovisualizer.visualizer.shape.CircleDrawer;
 import be.appfoundry.audiovisualizer.visualizer.shape.LineDrawer;
+import be.appfoundry.audiovisualizer.visualizer.shape.TestAudioDrawer;
 import be.appfoundry.audiovisualizer.visualizer.shape.TestDrawer;
 import be.appfoundry.audiovisualizer.visualizer.shape.TestDrawer2;
 
@@ -107,14 +108,16 @@ public class MyActivity extends Activity {
         mPlayer = MediaPlayer.create(this, R.raw.test);
         long time = TimeUnit.MILLISECONDS.toSeconds(mPlayer.getDuration());
         mProgressBar.setMax((int)time);
-        mPlayer.setLooping(true);
+        mPlayer.setLooping(false);
         mPlayer.start();
 
         // Link the visualizer view with the mediaplayer
         mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
         mVisualizerView.link(mPlayer);
 
-        addTestDrawer2();
+        addTestAudioDrawer();
+
+        //addTestDrawer2();
         //addTestDrawer();
 
         //Add a Circle to the view
@@ -137,6 +140,17 @@ public class MyActivity extends Activity {
             mPlayer = null;
         }
     }
+
+    private void addTestAudioDrawer()
+    {
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(16);
+        TestAudioDrawer barGraphRendererBottom = new TestAudioDrawer(paint);
+        mVisualizerView.addRenderer(barGraphRendererBottom);
+    }
+
 
     private void addTestDrawer2()
     {

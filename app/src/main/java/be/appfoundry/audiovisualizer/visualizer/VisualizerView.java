@@ -14,10 +14,13 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
+import android.media.audiofx.Equalizer;
 import android.media.audiofx.Visualizer;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +33,7 @@ public class VisualizerView extends View {
     private byte[] mFFTBytes;
     private Rect mRect = new Rect();
     private Visualizer mVisualizer;
+    private Equalizer mEqualizer;
 
     private Set<ShapeDrawer> mShapeDrawers;
 
@@ -66,6 +70,9 @@ public class VisualizerView extends View {
         if (player == null) {
             throw new NullPointerException("Cannot link to null MediaPlayer");
         }
+
+        mEqualizer = new Equalizer(0, player.getAudioSessionId());
+        mEqualizer.setEnabled(true); // need to enable equalizer
 
         // Create the Visualizer object and attach it to our media player.
         mVisualizer = new Visualizer(player.getAudioSessionId());
